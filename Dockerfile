@@ -13,5 +13,8 @@ RUN pip install -r requirements.txt
 # copy the content of the local src directory to the working directory
 COPY . .
 
+# expose port 4000
+EXPOSE 4000
+
 # command to run on container start
 CMD ["python", "manage.py", "runserver","0.0.0.0:4000"]
