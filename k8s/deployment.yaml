@@ -15,3 +15,30 @@ spec:
       containers:
       - name: webapp
         image: asry007/k8s:v2
+        livenessProbe:
+          exec:
+            command:
+            - ls
+            - /etc/data
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        readinessProbe:
+          exec:
+            command:
+            - ls
+            - /etc/data
+          initialDelaySeconds: 5
+          periodSeconds: 5
+        volumeMounts:
+        - name: volume
+          mountPath: "/etc/secret"
+          readOnly: true
+        - name: data
+          mountPath: "/etc/data"
+      volumes:
+      - name: data
+        persistentVolumeClaim:
+          claimName: pvc
+      - name: volume
+        secret:
+          secretName: dbsecret
